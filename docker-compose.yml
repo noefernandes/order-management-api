@@ -1,0 +1,43 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: mysql-container
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: order-db
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./docker-data/mysql-data:/var/lib/mysql
+    networks:
+      - mynetwork
+
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    container_name: rabbitmq
+    environment:
+      RABBITMQ_DEFAULT_USER: myuser
+      RABBITMQ_DEFAULT_PASS: mypassword
+    volumes:
+      - ./docker-data/rabbitmq/data/:/var/lib/rabbitmq/
+      - ./docker-data/rabbitmq/log/:/var/log/rabbitmq/
+    networks:
+      - mynetwork
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+
+volumes:
+  mysql-data:
+    driver: local
+
+  rabbitmq-data:
+    driver: local
+
+networks:
+  mynetwork:
+    driver: bridge
