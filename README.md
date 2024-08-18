@@ -96,11 +96,72 @@ spring.rabbitmq.password={RABBITMQ_PASSWORD}
 spring.rabbitmq.ssl.enabled=true
 ```
 
-**Passo 2.** Na pasta root do projeto:
+**Passo 2.** Na pasta root do projeto, executa-se os seguintes comandos para criar a imagem da aplicação e enviá-la ao DockerHub:
 
 `mvn package`
+
 `mv target/order-management-api-0.0.1-SNAPSHOT.jar target/order-management-api.jar`
+
 `docker image build -t seu_nome_de_usuario_do_docker/order-management-api .`
+
 `docker push seu_nome_de_usuario_do_docker/order-management-api`
 
+**Passo 3.** No console da AWS, busca-se Amazon Elastic Container Service.
 
+**Passo 4.** Clica-se em Criar cluster.
+
+**Passo 5.** Aparacerá a seguinte tela de criação:
+
+
+<img src="https://github.com/user-attachments/assets/66e4fa09-a3c6-4437-99df-43b2476a52fb" alt="Image 1" align="center" style="width: 800px"/></td>
+
+Nela, insere-se o nome do cluster e clica em criar, mantendo as outras configurações predefinidas. Pronto, o cluster estará criado.
+
+Obs: é importante que AWS Fargate seja mantido para se trabalhar com serveless.
+
+**Passo 6.** Logo depois, clica-se em Definições de tarefa na barra lateral e em seguida em Criar nova definição de tarefa.
+
+**Passo 7.** A seguinte tela aparecerá:
+
+
+<img src="https://github.com/user-attachments/assets/2b8c8329-2569-4204-a1b4-2d02baf14040" alt="Image 1" align="center" style="width: 800px"/></td>
+
+As mudanças nesta tela se limitarão a:
+
+* Família da definição de tarefa: Especifique um nome de família de definição de tarefa exclusivo. Pode ser nome_do_container-task, por exemplo.
+
+* Em Tamanho da Tarefa, para CPU e Memória: .5 vCPU e 1GB, respectivamente.
+
+* Função de execução de tarefas: Criar novo perfil
+
+* Em Detalhes do contêiner, adicione um nome para o container, atribua a URI da sua imagem Docker no DockerHub e mude a porta do contêiner para 8080.
+
+**Passo 8.** Clica-se em Criar.
+
+**Passo 9.** Após criar a Definição de tarefa, clica-se em Clusters no menu lateral e em seguida no cluster anteriormente criado.
+
+**Passo 10.** Na tab Serviços, clica-se em Criar. A seguinte tela será apresentada:
+
+<img src="https://github.com/user-attachments/assets/cd3f72f1-c931-4d13-8f65-6a8b3e9ee81e" alt="Image 1" align="center" style="width: 800px"/></td>
+
+Nessa tela, as mudanças serão feitas em:
+
+* Família: selecione a tarefa que você criou.
+
+* Balanceamento de carga: selecione Application Load Balancer.
+
+* Nome do load balancer: escolha um nome para o load balancer.
+
+* Em Grupo de destino, escolha Criar novo grupo de destino e defina um nome à sua escolha.
+
+**Passo 11.** Finalmente, clica-se em Criar. Após alguns, minutos será possível notar que o serviço foi criado e a tarefa criada anteriormente está em execução.
+
+<img src="https://github.com/user-attachments/assets/e5236499-e3e1-44cd-a79c-387bd9232829" alt="Image 1" align="center" style="width: 800px"/></td>
+
+**Passo 12.** Clicando no serviço, procura-se a tab Configuração e redes. Nela procure por Nomes de DNS e lá estará o endereço de load balancer onde será possível acessar a aplicação.
+
+Ao final, pode-se notar que a implantação da aplicação foi um sucesso fazendo uma consulta simples à api:
+
+<img src="https://github.com/user-attachments/assets/84dece0c-73ef-40b8-a2c0-57d3c364ca2c" alt="Image 1" align="center" style="width: 800px"/></td>
+
+Obs: A implantação logo depois dos testes foi desativada por questão de segurança.
