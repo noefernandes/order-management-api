@@ -1,6 +1,63 @@
 # Order Management Api
 
-## Como Executar usando localmente docker-compose
+API reponsável gerenciar uma aplicação de compras. As entidades presentes são Produto (Product), Compra (Purchase) e Item de Compra (PurchaseItem).
+
+## Descrição dos endpoints da API
+
+### Buscar todos os produtos
+
+    curl -X GET http://localhost:8080/api/product/all
+
+```json
+ [
+	{
+		"id": 1,
+		"name": "Celular",
+		"description": "Novo modelo da Nokia",
+		"price": 1949.9
+	},
+	{
+		"id": 2,
+		"name": "Bolsa",
+		"description": "Bolsa cara",
+		"price": 7239.9
+	}
+]
+```
+
+### Buscar um produto por id
+
+    curl -X GET http://localhost:8080/api/product/2
+
+```json
+ {
+	"id": 2,
+	"name": "Bolsa",
+	"description": "Bolsa cara",
+	"price": 7239.9
+}
+```
+
+### Criar um produto
+
+    curl -X POST http://localhost:8080/api/product -H "Content-Type: application/json" -d "{\"name\": \"Bola\", \"description\": \"Bola Penalty\", \"price\": 149.90}"
+
+```json
+ {
+	"id": 2,
+	"name": "Bolsa",
+	"description": "Bolsa cara",
+	"price": 7239.9
+}
+```
+
+## Como executar usando localmente o docker-compose
+
+Na raiz do projeto, execute o seguinte comando no terminal:
+
+    docker compose up
+
+A api estará completamente disponível em [localhost:8080](http://localhost:8080).
 
 ## Como implantar na AWS
 
