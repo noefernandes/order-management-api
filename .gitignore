@@ -4,7 +4,7 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 
-docker-data
+mysql-data
 
 ### STS ###
 .apt_generated

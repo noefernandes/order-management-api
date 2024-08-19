@@ -33,6 +33,6 @@ public class Purchase {
     @Enumerated(EnumType.STRING)
     private PurchaseStatus purchaseStatus;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     private List<PurchaseItem> purchaseItems = new ArrayList<>();
 }

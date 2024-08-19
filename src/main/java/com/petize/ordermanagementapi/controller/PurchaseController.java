@@ -1,10 +1,10 @@
 package com.petize.ordermanagementapi.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.petize.ordermanagementapi.model.purchase.Purchase;
+import com.petize.ordermanagementapi.model.purchase.PurchaseRequest;
 import com.petize.ordermanagementapi.model.purchase.PurchaseResponse;
 import com.petize.ordermanagementapi.model.purchase.PurchaseStatusMessage;
-import com.petize.ordermanagementapi.model.purchaseItem.PurchaseItem;
+import com.petize.ordermanagementapi.model.purchaseItem.PurchaseItemResponse;
 import com.petize.ordermanagementapi.service.PurchaseService;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,12 +21,12 @@ public class PurchaseController {
     }
 
     @PostMapping
-    public Purchase createPurchase(@RequestBody Purchase purchase) {
-        return this.purchaseService.createPurchase(purchase);
+    public PurchaseResponse createPurchase(@RequestBody PurchaseRequest purchaseRequest) {
+        return this.purchaseService.createPurchase(purchaseRequest);
     }
 
     @PutMapping
-    public Purchase updatePurchase(@RequestBody Purchase purchaseRequest) {
+    public PurchaseResponse updatePurchase(@RequestBody PurchaseRequest purchaseRequest) {
         return this.purchaseService.updatePurchase(purchaseRequest);
     }
 
@@ -36,7 +36,7 @@ public class PurchaseController {
     }
 
     @GetMapping("/{id}")
-    public Purchase getPurchaseById(@PathVariable Long id) {
+    public PurchaseResponse getPurchaseById(@PathVariable Long id) {
         return this.purchaseService.getPurchaseById(id);
     }
 
@@ -46,7 +46,7 @@ public class PurchaseController {
     }
 
     @RequestMapping("/item/{id}")
-    public PurchaseItem getPurchaseItemById(@PathVariable Long id) {
+    public PurchaseItemResponse getPurchaseItemById(@PathVariable Long id) {
         return this.purchaseService.getPurchaseItemById(id);
     }
 
