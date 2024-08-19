@@ -130,7 +130,6 @@ public class PurchaseService {
         this.rabbitTemplate.convertAndSend("purchase_queue", requestChangeStatus);
     }
 
-    // PRECISA VERIFICAR AS EXCEÇÕES
     @RabbitListener(queues = "purchase_queue")
     public void changePurchaseStatus(String purchaseStatusMessage) throws JsonProcessingException {
         PurchaseStatusMessage message = objectMapper.readValue(purchaseStatusMessage, PurchaseStatusMessage.class);
