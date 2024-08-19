@@ -436,3 +436,6 @@ Ao final, pode-se notar que a implantação da aplicação foi um sucesso fazend
 <img src="https://github.com/user-attachments/assets/84dece0c-73ef-40b8-a2c0-57d3c364ca2c" alt="Image 1" align="center" style="width: 800px"/></td>
 
 Obs: A implantação logo depois dos testes foi desativada por questão de segurança.
+
+
+## Desenvolvido por **Noé Fernandes**
