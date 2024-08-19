@@ -8,6 +8,8 @@ API reponsável gerenciar uma aplicação de compras. As entidades presentes sã
 
     curl -X GET http://localhost:8080/api/product/all
 
+- Resposta
+
 ```json
  [
 	{
@@ -26,8 +28,10 @@ API reponsável gerenciar uma aplicação de compras. As entidades presentes sã
 ```
 
 ### Buscar um produto por id
-
+  
     curl -X GET http://localhost:8080/api/product/2
+
+- Resposta
 
 ```json
  {
@@ -44,12 +48,217 @@ API reponsável gerenciar uma aplicação de compras. As entidades presentes sã
 
 ```json
  {
-	"id": 2,
-	"name": "Bolsa",
-	"description": "Bolsa cara",
-	"price": 7239.9
+	"name": "Bola",
+	"description": "Bola Penalty",
+	"price": 149.9
 }
 ```
+
+- Resposta
+  
+```json
+{
+	"id": 3,
+	"name": "Bola",
+	"description": "Bola Penalty",
+	"price": 149.9
+}
+```
+
+### Editar Produto
+
+    curl -X POST http://localhost:8080/api/product -H "Content-Type: application/json" -d "{\"id\": 1, \"name\": \"Tênis\", \"description\": \"Tênis Puma\", \"price\": 279.90}"
+
+```json
+ {
+	"id": 1,
+	"name": "Tênis",
+	"description": "Tênis Puma",
+	"price": 279.90
+}
+```
+
+- Resposta
+
+```json
+ {
+	"id": 1,
+	"name": "Tênis",
+	"description": "Tênis Puma",
+	"price": 279.90
+}
+```
+
+### Deletar Produto
+
+    curl -X DELETE http://localhost:8080/api/product/1
+
+### Criar uma compra
+
+    curl -X POST http://localhost:8080/api/purchase -H "Content-Type: application/json" -d '{"date": "19-08-2024 23:27:16.000000", "purchaseItems": [{"productId": 2, "quantity": 49}]}'
+
+```json
+ {
+	"date": "19-08-2024 23:27:16.000000",
+	"purchaseItems": [
+		{
+			"productId": 3,
+			"quantity": 10
+		}
+	]
+}
+```
+
+- Resposta
+
+```json
+{
+  "date": "19-08-2024 23:27:16.000000",
+  "purchaseItems": [
+    {
+      "productId": 3,
+      "quantity": 10
+    }
+  ]
+}
+
+```
+
+
+### Editar uma compra
+
+    curl -X PUT http://localhost:8080/api/purchase -H "Content-Type: application/json" -d '{"id": 1, "date": "19-08-2024 23:27:16.000000", "purchaseStatus": "PROCESSING", "purchaseItems": [{"productId": 1, "quantity": 9}, {"productId": 3, "quantity": 17}]}'
+
+```json
+ {
+	"id": 1,
+	"date": "19-08-2024 23:27:16.000000",
+	"purchaseStatus": "PROCESSING",
+	"purchaseItems": [
+		{
+			"productId": 1,
+			"quantity": 9
+		},
+		{
+			"productId": 3,
+			"quantity": 17
+		}
+	]
+}
+```
+
+- Resposta
+
+```json
+{
+  "id": 1,
+  "date": "19-08-2024 23:27:16",
+  "purchaseStatus": "PROCESSING",
+  "purchaseItems": [
+    {
+      "id": 2,
+      "quantity": 9,
+      "productName": "Tênis",
+      "description": "Tênis Puma",
+      "price": 279.9
+    },
+    {
+      "id": 3,
+      "quantity": 17,
+      "productName": "Bola",
+      "description": "Bola Penalty",
+      "price": 149.9
+    }
+  ]
+}
+
+```
+
+### Buscar todas as compras
+
+    curl -X GET http://localhost:8080/api/purchase/all
+
+- Resposta
+
+```json
+[
+	{
+		"id": 1,
+		"date": "19-08-2024 23:27:16",
+		"purchaseStatus": "PROCESSING",
+		"purchaseItems": [
+			{
+				"id": 2,
+				"quantity": 9,
+				"productName": "Tênis",
+				"description": "Tênis Puma",
+				"price": 279.9
+			},
+			{
+				"id": 3,
+				"quantity": 17,
+				"productName": "Bola",
+				"description": "Bola Penalty",
+				"price": 149.9
+			}
+		]
+	}
+]
+```
+
+### Buscar uma compra
+
+    curl -X GET http://localhost:8080/api/purchase/2
+
+- Resposta
+
+```json
+{
+	"id": 1,
+	"date": "19-08-2024 23:27:16",
+	"purchaseStatus": "PROCESSING",
+	"purchaseItems": [
+		{
+			"id": 2,
+			"quantity": 9,
+			"productName": "Tênis",
+			"description": "Tênis Puma",
+			"price": 279.9
+		},
+		{
+			"id": 3,
+			"quantity": 17,
+			"productName": "Bola",
+			"description": "Bola Penalty",
+			"price": 149.9
+		}
+	]
+```
+
+### Buscar um item de compra
+
+    curl -X GET http://localhost:8080/api/purchase/item/3
+
+- Resposta
+
+```json
+{
+	"id": 3,
+	"quantity": 17,
+	"productName": "Bola",
+	"description": "Bola Penalty",
+	"price": 149.9
+}
+```
+
+### Mudar status da compra (Endpoint que executa a fila do RabbitMQ)
+
+    curl -X POST http://localhost:8080/api/purchase/change-status -H "Content-Type: application/json" -d '{"purchaseId": 1, "status": "COMPLETED"}'
+
+### Deletar compra
+
+    curl -X DELETE http://localhost:8080/api/purchase/1
+    
 
 ## Como executar usando localmente o docker-compose
 
