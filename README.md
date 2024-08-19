@@ -95,7 +95,7 @@ API reponsável gerenciar uma aplicação de compras. As entidades presentes sã
 
 ### Criar uma compra
 
-    curl -X POST http://localhost:8080/api/purchase -H "Content-Type: application/json" -d '{"date": "19-08-2024 23:27:16.000000", "purchaseItems": [{"productId": 2, "quantity": 49}]}'
+    curl -X POST http://localhost:8080/api/purchase -H "Content-Type: application/json" -d '{"date": "19-08-2024 23:27:16.000000", "purchaseItems": [{"productId": 3, "quantity": 10}]}'
 
 ```json
  {
