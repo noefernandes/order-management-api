@@ -1,6 +1,6 @@
 # Order Management Api
 
-API reponsável gerenciar uma aplicação de compras. As entidades presentes são Produto (Product), Compra (Purchase) e Item de Compra (PurchaseItem).
+API reponsável por gerenciar uma aplicação de compras. As entidades presentes são Produto (Product), Compra (Purchase) e Item de Compra (PurchaseItem).
 
 ## Descrição dos endpoints da API
 
