@@ -113,11 +113,16 @@ API reponsável gerenciar uma aplicação de compras. As entidades presentes sã
 
 ```json
 {
-  "date": "19-08-2024 23:27:16.000000",
+  "id": 1,
+  "date": "19-08-2024 23:27:16",
+  "purchaseStatus": "PENDING",
   "purchaseItems": [
     {
-      "productId": 3,
-      "quantity": 10
+      "id": 3,
+      "quantity": 10,
+      "productName": "Bola",
+      "description": "Bola Penalty",
+      "price": 149.9
     }
   ]
 }
